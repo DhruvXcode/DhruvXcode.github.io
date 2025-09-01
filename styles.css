@@ -188,7 +188,7 @@ main {
     object-fit: cover;
     z-index: 0;
     opacity: 0.85;
-    object-position: center 45%; /* Adjust to show face better on desktop */
+    object-position: center 30%; /* Adjust to show face better on desktop */
 }
 
 .hero-content {
@@ -651,7 +651,7 @@ footer p {
     
     .hero-content {
         padding: 0 25px;
-        transform: translateY(70%); /* Adjust text position for mobile */
+        transform: translateY(50%); /* Adjust text position for mobile */
     }
     
     .hero-content h1 {
