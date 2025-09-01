@@ -63,6 +63,34 @@ header h1 {
     color: var(--accent-color);
     letter-spacing: 1px;
     transition: all 0.3s ease;
+    margin: 0;
+}
+
+header h1 a.logo {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+}
+
+header h1 a.logo:hover {
+    color: var(--accent-color);
+}
+
+header h1 a.logo::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+header h1 a.logo:hover::after {
+    width: 100%;
 }
 
 nav ul {
