@@ -11,3 +11,6 @@ Thumbs.db
 # Deployment scripts (optional - remove if you want to keep them in repo)
 deploy.sh
 deploy.bat
+
+# Qwen notes file
+Qwen.md
