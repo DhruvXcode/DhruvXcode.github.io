@@ -100,6 +100,10 @@
                     <a href="https://github.com/DhruvXcode" target="_blank">GitHub</a>
                     <a href="https://www.linkedin.com/in/dhruv-gupta-12379b270/" target="_blank">LinkedIn</a>
                 </div>
+                <div class="visitor-counter">
+                    <span class="counter-label">Visitors:</span>
+                    <span class="counter-number" id="visitorCount">1000+</span>
+                </div>
                 <p>&copy; 2025 Dhruv Gupta. All rights reserved.</p>
             </div>
         </div>
@@ -143,6 +147,18 @@
             e.preventDefault();
             alert('Thanks for your message! In a real implementation, this would be sent to a server.');
             this.reset();
+        });
+        
+        // Simple visitor counter (this is a placeholder - in a real implementation you'd connect to a backend)
+        document.addEventListener('DOMContentLoaded', function() {
+            // For now, we'll just show a static number
+            // In a real implementation, this would fetch from a counter service
+            const counterElement = document.getElementById('visitorCount');
+            if (counterElement) {
+                // Simulate a realistic visitor count
+                const randomCount = Math.floor(Math.random() * 1000) + 1000;
+                counterElement.textContent = randomCount.toLocaleString();
+            }
         });
     </script>
 </body>

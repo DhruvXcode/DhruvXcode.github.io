@@ -402,6 +402,26 @@ footer p {
     letter-spacing: 1px;
 }
 
+/* Visitor Counter */
+.visitor-counter {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    letter-spacing: 1px;
+    color: var(--text-color);
+}
+
+.counter-label {
+    color: var(--accent-color);
+    margin-right: 5px;
+}
+
+.counter-number {
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
 /* Page Specific Styles */
 .page-header {
     padding: 250px 0 120px;
