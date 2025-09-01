@@ -50,10 +50,113 @@ header {
     transition: all 0.3s ease;
 }
 
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+}
+
+header h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    margin: 0;
+}
+
+header h1 a.logo {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+}
+
+header h1 a.logo:hover {
+    color: var(--accent-color);
+}
+
+header h1 a.logo::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+header h1 a.logo:hover::after {
+    width: 100%;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 30px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: var(--accent-color);
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after,
+nav ul li a.active::after {
+    width: 100%;
+}
+
+/* Mobile Menu */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: var(--accent-color);
+    transition: all 0.3s ease;
+}
+
 /* Main Content Styles */
 main {
     min-height: 100vh;
-    padding-top: 0; /* Remove padding to eliminate black space */
+    padding-top: 0;
 }
 
 /* Hero Section */
@@ -64,7 +167,6 @@ main {
     position: relative;
     overflow: hidden;
     background-attachment: fixed;
-    margin-top: 0; /* Remove any top margin */
 }
 
 .hero-overlay {
@@ -86,7 +188,7 @@ main {
     object-fit: cover;
     z-index: 0;
     opacity: 0.85;
-    object-position: center center; /* Center the image */
+    object-position: center 45%; /* Adjust to show face better on desktop */
 }
 
 .hero-content {
@@ -96,9 +198,8 @@ main {
     padding: 0 40px;
     margin: 0 auto;
     text-align: center;
-    /* Position text in a area less likely to overlap with face */
-    align-self: flex-end;
-    margin-bottom: 20vh; /* Push text up from bottom */
+    /* Adjust text position to avoid face area */
+    transform: translateY(90%); /* Move text up slightly to avoid face overlap */
 }
 
 .hero-content h1 {
@@ -544,10 +645,13 @@ footer p {
         height: 100vh;
     }
     
+    .hero-image {
+        object-position: center 30%; /* Adjust for better face positioning on mobile */
+    }
+    
     .hero-content {
         padding: 0 25px;
-        margin-bottom: 15vh; /* Adjust for mobile */
-        align-self: flex-end;
+        transform: translateY(70%); /* Adjust text position for mobile */
     }
     
     .hero-content h1 {
