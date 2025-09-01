@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhruv Gupta - Experiments</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Dhruv Gupta</h1>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="experiments.html" class="active">Experiments</a></li>
+                    <li><a href="thoughts.html">Thoughts</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="page-header-overlay"></div>
+            <img src="cover-img.jpeg" alt="Experiments" class="page-header-bg">
+            <div class="page-header-content">
+                <div class="container">
+                    <h1>Experiments</h1>
+                    <p>A showcase of my coding experiments and side projects</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-content">
+            <div class="container">
+                <div class="page-content-inner">
+                    <div class="content-grid">
+                        <div class="content-card">
+                            <h3>Interactive Data Visualizations</h3>
+                            <p>Exploring D3.js to create dynamic, interactive visualizations of complex datasets.</p>
+                            <a href="#" class="btn">View Project</a>
+                        </div>
+                        <div class="content-card">
+                            <h3>Machine Learning Playground</h3>
+                            <p>Experiments with TensorFlow.js to create browser-based ML models.</p>
+                            <a href="#" class="btn">View Project</a>
+                        </div>
+                        <div class="content-card">
+                            <h3>WebAssembly Performance Tests</h3>
+                            <p>Comparing the performance of WebAssembly modules with pure JavaScript implementations.</p>
+                            <a href="#" class="btn">View Project</a>
+                        </div>
+                        <div class="content-card">
+                            <h3>Progressive Web App</h3>
+                            <p>A offline-capable web application with service workers and caching strategies.</p>
+                            <a href="#" class="btn">View Project</a>
+                        </div>
+                        <div class="content-card">
+                            <h3>Real-time Collaboration Tool</h3>
+                            <p>A web-based collaborative editor with WebSockets for real-time updates.</p>
+                            <a href="#" class="btn">View Project</a>
+                        </div>
+                        <div class="content-card">
+                            <h3>Blockchain Explorer</h3>
+                            <p>A simplified blockchain explorer to understand distributed ledger technology.</p>
+                            <a href="#" class="btn">View Project</a>
+                        </div>
+                    </div>
+                    
+                    <h2>Open Source Contributions</h2>
+                    <p>Besides my personal projects, I also contribute to various open-source initiatives. Here are some of my recent contributions:</p>
+                    <ul>
+                        <li>Improved accessibility features in a popular UI library</li>
+                        <li>Optimized build process for a JavaScript framework</li>
+                        <li>Added new components to a design system</li>
+                        <li>Fixed critical bugs in a widely-used npm package</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://github.com/DhruvXcode" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/dhruv-gupta-12379b270/" target="_blank">LinkedIn</a>
+                </div>
+                <p>&copy; 2025 Dhruv Gupta. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            
+            // Animate hamburger icon
+            const spans = menuToggle.querySelectorAll('span');
+            if (nav.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                const spans = menuToggle.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

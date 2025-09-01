@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhruv Gupta - Thoughts</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Dhruv Gupta</h1>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="experiments.html">Experiments</a></li>
+                    <li><a href="thoughts.html" class="active">Thoughts</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="page-header-overlay"></div>
+            <img src="cover-img.jpeg" alt="Thoughts" class="page-header-bg">
+            <div class="page-header-content">
+                <div class="container">
+                    <h1>Thoughts</h1>
+                    <p>My reflections on technology, programming, and the digital world</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-content">
+            <div class="container">
+                <div class="page-content-inner">
+                    <div class="content-grid">
+                        <div class="content-card">
+                            <h3>The Future of Web Development</h3>
+                            <p class="meta">Published: June 15, 2025</p>
+                            <p>Exploring where web development is heading with new frameworks, tools, and paradigms...</p>
+                            <a href="#" class="btn">Read More</a>
+                        </div>
+                        <div class="content-card">
+                            <h3>Why I Choose Open Source</h3>
+                            <p class="meta">Published: May 3, 2025</p>
+                            <p>The benefits of open-source software and why contributing back is important...</p>
+                            <a href="#" class="btn">Read More</a>
+                        </div>
+                        <div class="content-card">
+                            <h3>Balancing Innovation and Stability</h3>
+                            <p class="meta">Published: April 22, 2025</p>
+                            <p>Navigating the tension between adopting new technologies and maintaining reliable systems...</p>
+                            <a href="#" class="btn">Read More</a>
+                        </div>
+                        <div class="content-card">
+                            <h3>Lessons from My First Major Project</h3>
+                            <p class="meta">Published: March 10, 2025</p>
+                            <p>Key takeaways from developing a large-scale application and what I'd do differently...</p>
+                            <a href="#" class="btn">Read More</a>
+                        </div>
+                    </div>
+                    
+                    <h2>Technical Deep Dives</h2>
+                    <p>In addition to my thoughts on the industry, I also write technical deep dives:</p>
+                    <ul>
+                        <li>Understanding the Event Loop in JavaScript</li>
+                        <li>Building Accessible Web Applications</li>
+                        <li>Optimizing React Performance</li>
+                        <li>Implementing Secure Authentication</li>
+                        <li>Database Design Best Practices</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://github.com/DhruvXcode" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/dhruv-gupta-12379b270/" target="_blank">LinkedIn</a>
+                </div>
+                <p>&copy; 2025 Dhruv Gupta. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            
+            // Animate hamburger icon
+            const spans = menuToggle.querySelectorAll('span');
+            if (nav.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Close menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                const spans = menuToggle.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
