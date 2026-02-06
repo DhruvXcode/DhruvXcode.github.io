@@ -3,113 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dhruv Gupta - Page Not Found</title>
+    <title>404 | Dhruv Gupta</title>
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Roboto+Mono:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1><a href="index.html" class="logo">Dhruv Gupta</a></h1>
-            <div class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="experiments.html">Experiments</a></li>
-                    <li><a href="thoughts.html">Thoughts</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <div class="site-shell nav-shell">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" aria-hidden="true"></span>
+                <span>Dhruv Gupta</span>
+            </a>
         </div>
     </header>
 
-    <main>
-        <section class="page-header">
-            <div class="page-header-overlay"></div>
-            <img src="cover-img.jpeg" alt="404" class="page-header-bg">
-            <div class="page-header-content">
-                <div class="container">
-                    <h1>404 - Page Not Found</h1>
-                    <p>Oops! The page you're looking for doesn't exist.</p>
-                </div>
+    <main class="site-shell not-found">
+        <article class="not-found-card reveal visible">
+            <p class="eyebrow">404</p>
+            <h1>This page does not exist.</h1>
+            <p>The link may be old, or the page was removed during the website rebuild.</p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="index.html">Go Home</a>
             </div>
-        </section>
-
-        <section class="page-content">
-            <div class="container">
-                <div class="page-content-inner" style="text-align: center;">
-                    <p>The page you requested could not be found. It might have been moved, deleted, or the URL might be incorrect.</p>
-                    <a href="index.html" class="btn" style="margin-top: 40px;">Return to Home</a>
-                </div>
-            </div>
-        </section>
+        </article>
     </main>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="social-links">
-                    <a href="https://github.com/DhruvXcode" target="_blank">GitHub</a>
-                    <a href="https://www.linkedin.com/in/dhruv-gupta-12379b270/" target="_blank">LinkedIn</a>
-                </div>
-                <div class="visitor-counter">
-                    <span class="counter-label">Visitors:</span>
-                    <span class="counter-number" id="visitorCount">1000+</span>
-                </div>
-                <p>&copy; 2025 Dhruv Gupta. All rights reserved.</p>
-            </div>
+    <footer class="site-footer">
+        <div class="site-shell footer-shell">
+            <p>&copy; <span id="year"></span> Dhruv Gupta</p>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const menuToggle = document.querySelector('.menu-toggle');
-        const nav = document.querySelector('nav');
-
-        menuToggle.addEventListener('click', () => {
-            nav.classList.toggle('active');
-            
-            // Animate hamburger icon
-            const spans = menuToggle.querySelectorAll('span');
-            if (nav.classList.contains('active')) {
-                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-                spans[1].style.opacity = '0';
-                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-            } else {
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
-            }
-        });
-
-        // Close menu when clicking on a link
-        const navLinks = document.querySelectorAll('nav a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                nav.classList.remove('active');
-                const spans = menuToggle.querySelectorAll('span');
-                spans[0].style.transform = 'none';
-                spans[1].style.opacity = '1';
-                spans[2].style.transform = 'none';
-            });
-        });
-        
-        // Simple visitor counter (this is a placeholder - in a real implementation you'd connect to a backend)
-        document.addEventListener('DOMContentLoaded', function() {
-            // For now, we'll just show a static number
-            // In a real implementation, this would fetch from a counter service
-            const counterElement = document.getElementById('visitorCount');
-            if (counterElement) {
-                // Simulate a realistic visitor count
-                const randomCount = Math.floor(Math.random() * 1000) + 1000;
-                counterElement.textContent = randomCount.toLocaleString();
-            }
-        });
+        document.getElementById("year").textContent = String(new Date().getFullYear());
     </script>
 </body>
 </html>
