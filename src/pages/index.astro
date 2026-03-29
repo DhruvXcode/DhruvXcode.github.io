@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Home" description="Dhruv Gupta's website, rebuilt with Astro from the same real project history.">
+  <section class="hero">
+    <p class="eyebrow">Fresh rebuild</p>
+    <h1>Same history. New website.</h1>
+    <p class="lead">
+      This project is being rebuilt from scratch with Astro, while keeping the real Git story of when the
+      work started.
+    </p>
+    <div class="hero-actions">
+      <a class="button button-primary" href="/about">About me</a>
+      <a class="button button-secondary" href="/contact">Contact</a>
+    </div>
+  </section>
+
+  <section class="grid" aria-label="Current direction">
+    <article class="panel">
+      <h2>What this is</h2>
+      <p class="muted">A clean personal website that will grow into the public home for my work and writing.</p>
+    </article>
+    <article class="panel">
+      <h2>What stays</h2>
+      <p class="muted">The repository history stays real, so the project timeline and contribution graph remain honest.</p>
+    </article>
+    <article class="panel">
+      <h2>What changes</h2>
+      <p class="muted">The old filler site is gone. This rebuild starts fresh with Astro and GitHub Pages.</p>
+    </article>
+  </section>
+</BaseLayout>

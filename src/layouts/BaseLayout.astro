@@ -1,0 +1,80 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const siteName = "Dhruv Gupta";
+const fullTitle = title === "Home" ? siteName : `${title} | ${siteName}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#f5efe3" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#11100f" media="(prefers-color-scheme: dark)" />
+
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem("theme");
+        const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const theme = stored === "light" || stored === "dark" ? stored : systemDark ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell nav-shell">
+        <a class="brand" href="/">Dhruv Gupta</a>
+        <nav class="main-nav" aria-label="Primary">
+          <a href="/">Home</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+        </nav>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme">Theme</button>
+      </div>
+    </header>
+
+    <main class="shell page-shell">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-shell">
+        <span>&copy; {new Date().getFullYear()} Dhruv Gupta</span>
+        <div class="footer-links">
+          <a href="https://github.com/DhruvXcode">GitHub</a>
+          <a href="https://x.com/_dhruvx">X</a>
+          <a href="mailto:gdhruv1677@gmail.com">Email</a>
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const button = document.getElementById("theme-toggle");
+        if (!button) return;
+        button.addEventListener("click", () => {
+          const current = root.dataset.theme === "dark" ? "dark" : "light";
+          const next = current === "dark" ? "light" : "dark";
+          root.dataset.theme = next;
+          localStorage.setItem("theme", next);
+        });
+      })();
+    </script>
+  </body>
+</html>
