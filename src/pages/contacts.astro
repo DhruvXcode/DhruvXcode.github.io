@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const contactLinks = [
+  { label: "email", value: "gdhruv1677@gmail.com", href: "mailto:gdhruv1677@gmail.com" },
+  { label: "github", value: "DhruvXcode", href: "https://github.com/DhruvXcode" },
+  { label: "linkedin", value: "Dhruv Gupta", href: "https://www.linkedin.com/in/dhruv-gupta-12379b270/" },
+  { label: "x", value: "@_dhruvx", href: "https://x.com/_dhruvx" }
+];
+---
+
+<BaseLayout title="Contacts" description="Contact links for Dhruv Gupta.">
+  <section class="simple-page">
+    <h1>contacts.</h1>
+    <div class="simple-list">
+      {contactLinks.map((item) => (
+        <p>
+          <span class="list-label">{item.label}</span>
+          <a href={item.href}>{item.value}</a>
+        </p>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,22 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate, sortWriting } from "../../lib/content";
+
+const posts = sortWriting(await getCollection("writing"));
+---
+
+<BaseLayout title="Blogs" description="Blog posts by Dhruv Gupta.">
+  <section class="simple-page">
+    <h1>blogs.</h1>
+    <div class="simple-post-list">
+      {posts.map((post) => (
+        <article>
+          <h2><a href={`/blogs/${post.id}`}>{post.data.title}</a></h2>
+          <p class="post-date">{formatDate(post.data.date)}</p>
+          <p>{post.data.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
