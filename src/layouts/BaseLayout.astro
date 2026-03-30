@@ -49,7 +49,7 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(`${h
         <a class="brand" href="/">Dhruv Gupta</a>
         <div class="header-actions">
           <details class="site-menu">
-            <summary class="menu-toggle" aria-label="Toggle navigation">
+            <summary class="menu-toggle" aria-label="Open navigation">
               <svg viewBox="0 0 24 24" class="menu-symbol" aria-hidden="true">
                 <path d="M6.75 9.5 12 14.75 17.25 9.5" />
               </svg>
@@ -62,11 +62,11 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(`${h
               ))}
             </nav>
           </details>
+
           <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme">
-            <svg viewBox="0 0 24 24" class="theme-symbol" aria-hidden="true">
-              <circle cx="12" cy="12" r="7.25" />
-              <path d="M12 4.75a7.25 7.25 0 0 1 0 14.5Z" />
-            </svg>
+            <span class="switch-track" aria-hidden="true">
+              <span class="switch-thumb"></span>
+            </span>
           </button>
         </div>
       </div>

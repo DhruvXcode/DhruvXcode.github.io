@@ -1,16 +1,40 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { sortWriting } from "../lib/content";
+
+const latestPosts = sortWriting(await getCollection("writing")).slice(0, 3);
 ---
 
 <BaseLayout title="Home" description="Dhruv Gupta's personal website.">
-  <section class="simple-page">
+  <section class="simple-page home-page">
     <h1>hello.</h1>
     <p>
-      This is my small place on the internet. It is still changing, so I want it to stay simple for now.
+      This is a small place on the internet for my writing, ideas, and the things I am building over time.
     </p>
     <p>
-      You can read a few notes, learn a little about me, or find the easiest way to reach me through the links
-      above.
+      I care about AI, software, and making thoughtful things that feel clear, useful, and alive.
     </p>
+    <p>
+      I want this website to stay light. More like a page to read than a page trying too hard to perform.
+    </p>
+
+    <section class="home-section">
+      <h2>around here</h2>
+      <ul class="link-list">
+        <li><a href="/about">about</a></li>
+        <li><a href="/blogs">blogs</a></li>
+        <li><a href="/contacts">contacts</a></li>
+      </ul>
+    </section>
+
+    <section class="home-section">
+      <h2>recent notes</h2>
+      <ul class="link-list">
+        {latestPosts.map((post) => (
+          <li><a href={`/blogs/${post.id}`}>{post.data.title}</a></li>
+        ))}
+      </ul>
+    </section>
   </section>
 </BaseLayout>
