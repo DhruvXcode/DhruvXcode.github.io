@@ -1,20 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap");
 
 :root {
-  color-scheme: light;
-  --bg: #f5efe3;
-  --bg-rgb: 245, 239, 227;
-  --text: #201c18;
-  --muted: #6f665d;
-  --line: rgba(32, 28, 24, 0.14);
-  --link: #201c18;
-  --accent: #b25d37;
-  --panel: rgba(245, 239, 227, 0.92);
-  --panel-strong: #efe4d3;
-  --max-width: 44rem;
-}
-
-:root[data-theme="dark"] {
   color-scheme: dark;
   --bg: #11100f;
   --bg-rgb: 17, 16, 15;
@@ -23,8 +9,24 @@
   --line: rgba(243, 236, 223, 0.14);
   --link: #f3ecdf;
   --accent: #e39a72;
-  --panel: rgba(17, 16, 15, 0.9);
+  --panel: rgba(17, 16, 15, 0.94);
   --panel-strong: #191715;
+  --shadow: rgba(0, 0, 0, 0.28);
+  --max-width: 44rem;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f5efe3;
+  --bg-rgb: 245, 239, 227;
+  --text: #201c18;
+  --muted: #6f665d;
+  --line: rgba(32, 28, 24, 0.14);
+  --link: #201c18;
+  --accent: #b25d37;
+  --panel: rgba(245, 239, 227, 0.94);
+  --panel-strong: #efe4d3;
+  --shadow: rgba(88, 59, 31, 0.12);
 }
 
 *,
@@ -45,14 +47,36 @@ html {
 
 body {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at 16% 10%, rgba(178, 93, 55, 0.12), transparent 24%),
-    radial-gradient(circle at 84% 6%, rgba(76, 93, 120, 0.08), transparent 18%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 24%),
-    var(--bg);
+  position: relative;
+  background: var(--bg);
   color: var(--text);
   font-family: "Fraunces", Georgia, serif;
   line-height: 1.72;
+  isolation: isolate;
+}
+
+body.nav-open {
+  overflow: hidden;
+}
+
+.site-lighting {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(46rem 28rem at 14% 8%, rgba(227, 154, 114, 0.26), transparent 56%),
+    radial-gradient(28rem 22rem at 86% 6%, rgba(93, 118, 164, 0.16), transparent 48%),
+    radial-gradient(34rem 22rem at 50% 110%, rgba(227, 154, 114, 0.08), transparent 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 26%);
+}
+
+:root[data-theme="light"] .site-lighting {
+  background:
+    radial-gradient(42rem 28rem at 14% 8%, rgba(216, 162, 103, 0.28), transparent 54%),
+    radial-gradient(26rem 18rem at 88% 10%, rgba(154, 181, 220, 0.24), transparent 44%),
+    radial-gradient(30rem 20rem at 52% 112%, rgba(255, 255, 255, 0.62), transparent 62%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.52), transparent 32%);
 }
 
 a {
@@ -66,14 +90,19 @@ a:focus-visible {
   color: var(--accent);
 }
 
-button,
-summary {
+button {
   font: inherit;
 }
 
 .shell {
   width: min(100% - 1.5rem, var(--max-width));
   margin-inline: auto;
+}
+
+.site-header,
+.page-shell {
+  position: relative;
+  z-index: 1;
 }
 
 .site-header {
@@ -101,14 +130,15 @@ summary {
 }
 
 .theme-toggle,
-.menu-toggle {
+.menu-toggle,
+.drawer-close {
   width: 2.75rem;
   height: 2.75rem;
   display: grid;
   place-items: center;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(var(--bg-rgb), 0.34);
+  background: rgba(var(--bg-rgb), 0.32);
   color: var(--muted);
   cursor: pointer;
   padding: 0;
@@ -122,18 +152,23 @@ summary {
 .theme-toggle:hover,
 .theme-toggle:focus-visible,
 .menu-toggle:hover,
-.menu-toggle:focus-visible {
+.menu-toggle:focus-visible,
+.drawer-close:hover,
+.drawer-close:focus-visible {
   color: var(--text);
   border-color: var(--accent);
+  background: rgba(var(--bg-rgb), 0.46);
 }
 
 .theme-toggle:active,
-.menu-toggle:active {
+.menu-toggle:active,
+.drawer-close:active {
   transform: translateY(1px);
 }
 
 .theme-icon,
-.menu-symbol {
+.menu-symbol,
+.drawer-close-icon {
   width: 1.15rem;
   height: 1.15rem;
   stroke: currentColor;
@@ -144,65 +179,74 @@ summary {
 }
 
 .theme-icon-sun,
-:root[data-theme="dark"] .theme-icon-moon {
+:root[data-theme="light"] .theme-icon-sun,
+:root:not([data-theme="light"]) .theme-icon-moon {
   display: none;
 }
 
-:root[data-theme="dark"] .theme-icon-sun {
+:root[data-theme="light"] .theme-icon-moon,
+:root:not([data-theme="light"]) .theme-icon-sun {
   display: block;
 }
 
-.site-menu {
-  position: relative;
-}
-
-.site-menu summary {
-  list-style: none;
-}
-
-.site-menu summary::-webkit-details-marker {
-  display: none;
-}
-
-.menu-panel {
+.menu-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.18);
+  background: rgba(0, 0, 0, 0.34);
   opacity: 0;
   pointer-events: none;
   transition: opacity 180ms ease;
+  z-index: 20;
 }
 
-.page-nav {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: min(18rem, 88vw);
-  display: grid;
-  align-content: start;
-  gap: 0.9rem;
-  padding: 5.5rem 1.35rem 1.35rem;
-  background: var(--panel);
-  border-left: 1px solid var(--line);
-  box-shadow: -12px 0 36px rgba(0, 0, 0, 0.12);
-  transform: translateX(100%);
-  transition: transform 220ms ease;
-}
-
-.site-menu[open] .menu-panel {
+.menu-backdrop[data-open="true"] {
   opacity: 1;
   pointer-events: auto;
 }
 
-.site-menu[open] .page-nav {
+.side-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(19rem, 88vw);
+  padding: 1rem 1rem 1.4rem;
+  background: var(--panel);
+  border-left: 1px solid var(--line);
+  box-shadow: -14px 0 36px var(--shadow);
+  transform: translateX(100%);
+  transition: transform 220ms ease;
+  z-index: 30;
+}
+
+.side-drawer[data-open="true"] {
   transform: translateX(0);
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.drawer-label {
+  color: var(--muted);
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+
+.page-nav {
+  display: grid;
+  gap: 0.95rem;
 }
 
 .page-nav a {
   color: var(--muted);
   text-decoration: none;
-  font-size: 1.15rem;
+  font-size: 1.22rem;
 }
 
 .page-nav a.active,
@@ -302,6 +346,24 @@ ul {
   padding-left: 1.2rem;
 }
 
+@media (max-width: 719px) {
+  .site-lighting {
+    background:
+      radial-gradient(30rem 18rem at 12% 8%, rgba(227, 154, 114, 0.28), transparent 52%),
+      radial-gradient(18rem 15rem at 88% 8%, rgba(93, 118, 164, 0.18), transparent 44%),
+      radial-gradient(22rem 16rem at 50% 108%, rgba(227, 154, 114, 0.1), transparent 56%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 22%);
+  }
+
+  :root[data-theme="light"] .site-lighting {
+    background:
+      radial-gradient(28rem 18rem at 14% 8%, rgba(216, 162, 103, 0.32), transparent 50%),
+      radial-gradient(18rem 14rem at 88% 10%, rgba(154, 181, 220, 0.26), transparent 42%),
+      radial-gradient(20rem 14rem at 50% 108%, rgba(255, 255, 255, 0.68), transparent 56%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.54), transparent 30%);
+  }
+}
+
 @media (min-width: 720px) {
   .shell {
     width: min(100% - 2.5rem, var(--max-width));
@@ -316,14 +378,15 @@ ul {
   }
 
   .theme-toggle,
-  .menu-toggle {
+  .menu-toggle,
+  .drawer-close {
     width: 2.55rem;
     height: 2.55rem;
   }
 
-  .page-nav {
-    width: 16rem;
-    padding-top: 5.25rem;
+  .side-drawer {
+    width: 17rem;
+    padding: 1.15rem 1.1rem 1.5rem;
   }
 
   .page-shell {

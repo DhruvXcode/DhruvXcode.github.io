@@ -31,19 +31,43 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(`${h
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteName} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#f5efe3" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#11100f" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#11100f" />
 
     <script is:inline>
       (() => {
         const stored = localStorage.getItem("theme");
-        const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        const theme = stored === "light" || stored === "dark" ? stored : systemDark ? "dark" : "light";
+        const theme = stored === "light" || stored === "dark" ? stored : "dark";
         document.documentElement.dataset.theme = theme;
+
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        if (themeColor) {
+          themeColor.setAttribute("content", theme === "light" ? "#f5efe3" : "#11100f");
+        }
       })();
     </script>
   </head>
   <body>
+    <div class="site-lighting" aria-hidden="true"></div>
+    <div class="menu-backdrop" id="menu-backdrop" aria-hidden="true"></div>
+    <aside class="side-drawer" id="site-drawer" aria-hidden="true" aria-modal="true" aria-labelledby="drawer-title" role="dialog" inert>
+      <div class="drawer-header">
+        <span class="drawer-label" id="drawer-title">menu</span>
+        <button class="drawer-close" id="drawer-close" type="button" aria-label="Close navigation menu">
+          <svg viewBox="0 0 24 24" class="drawer-close-icon" aria-hidden="true">
+            <path d="M6 6l12 12M18 6 6 18" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="page-nav" aria-label="Primary">
+        {navItems.map((item) => (
+          <a href={item.href} class:list={{ active: isActive(item.href) }} aria-current={isActive(item.href) ? "page" : undefined}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
+    </aside>
+
     <header class="site-header">
       <div class="shell top-bar">
         <a class="brand" href="/">Dhruv Gupta</a>
@@ -58,22 +82,11 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(`${h
             </svg>
           </button>
 
-          <details class="site-menu">
-            <summary class="menu-toggle" aria-label="Open navigation">
-              <svg viewBox="0 0 24 24" class="menu-symbol" aria-hidden="true">
-                <path d="M4.5 7.5h15M4.5 12h15M4.5 16.5h15" />
-              </svg>
-            </summary>
-            <div class="menu-panel">
-              <nav class="page-nav" aria-label="Primary">
-                {navItems.map((item) => (
-                  <a href={item.href} class:list={{ active: isActive(item.href) }} aria-current={isActive(item.href) ? "page" : undefined}>
-                    {item.label}
-                  </a>
-                ))}
-              </nav>
-            </div>
-          </details>
+          <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation menu" aria-controls="site-drawer" aria-expanded="false" aria-haspopup="dialog">
+            <svg viewBox="0 0 24 24" class="menu-symbol" aria-hidden="true">
+              <path d="M4.5 7.5h15M4.5 12h15M4.5 16.5h15" />
+            </svg>
+          </button>
         </div>
       </div>
     </header>
@@ -85,42 +98,73 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(`${h
     <script is:inline>
       (() => {
         const root = document.documentElement;
-        const button = document.getElementById("theme-toggle");
-        const menu = document.querySelector(".site-menu");
-        const menuPanel = document.querySelector(".menu-panel");
+        const themeButton = document.getElementById("theme-toggle");
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        const menuToggle = document.getElementById("menu-toggle");
+        const backdrop = document.getElementById("menu-backdrop");
+        const drawer = document.getElementById("site-drawer");
+        const drawerClose = document.getElementById("drawer-close");
+        const drawerLinks = drawer ? drawer.querySelectorAll("a") : [];
 
-        if (button) {
-          button.addEventListener("click", () => {
-            const current = root.dataset.theme === "dark" ? "dark" : "light";
-            const next = current === "dark" ? "light" : "dark";
-            root.dataset.theme = next;
-            localStorage.setItem("theme", next);
-          });
-        }
-
-        if (menu instanceof HTMLDetailsElement) {
-          document.addEventListener("click", (event) => {
-            if (!menu.open) return;
-            if (menu.contains(event.target)) return;
-            menu.open = false;
-          });
-
-          if (menuPanel instanceof HTMLElement) {
-            menuPanel.addEventListener("click", (event) => {
-              if (event.target === menuPanel) {
-                menu.open = false;
-              }
-            });
+        const applyTheme = (theme) => {
+          root.dataset.theme = theme;
+          localStorage.setItem("theme", theme);
+          if (themeColor) {
+            themeColor.setAttribute("content", theme === "light" ? "#f5efe3" : "#11100f");
           }
+        };
 
-          document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-              menu.open = false;
-            }
+        if (themeButton) {
+          themeButton.addEventListener("click", () => {
+            const current = root.dataset.theme === "light" ? "light" : "dark";
+            applyTheme(current === "dark" ? "light" : "dark");
           });
         }
+
+        if (!(menuToggle && backdrop && drawer && drawerClose)) return;
+
+        const openMenu = () => {
+          drawer.dataset.open = "true";
+          drawer.removeAttribute("inert");
+          backdrop.dataset.open = "true";
+          drawer.setAttribute("aria-hidden", "false");
+          menuToggle.setAttribute("aria-expanded", "true");
+          document.body.classList.add("nav-open");
+          drawerClose.focus();
+        };
+
+        const closeMenu = () => {
+          drawer.dataset.open = "false";
+          drawer.setAttribute("inert", "");
+          backdrop.dataset.open = "false";
+          drawer.setAttribute("aria-hidden", "true");
+          menuToggle.setAttribute("aria-expanded", "false");
+          document.body.classList.remove("nav-open");
+          menuToggle.focus();
+        };
+
+        menuToggle.addEventListener("click", () => {
+          const isOpen = drawer.dataset.open === "true";
+          if (isOpen) {
+            closeMenu();
+          } else {
+            openMenu();
+          }
+        });
+
+        drawerClose.addEventListener("click", closeMenu);
+        backdrop.addEventListener("click", closeMenu);
+
+        drawerLinks.forEach((link) => {
+          link.addEventListener("click", closeMenu);
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && drawer.dataset.open === "true") {
+            closeMenu();
+          }
+        });
       })();
     </script>
   </body>
 </html>
-
