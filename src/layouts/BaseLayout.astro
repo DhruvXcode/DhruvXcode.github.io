@@ -49,13 +49,15 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(`${h
   <body>
     <div class="site-lighting" aria-hidden="true"></div>
     <div class="menu-backdrop" id="menu-backdrop" aria-hidden="true"></div>
-    <aside class="side-drawer" id="site-drawer" aria-hidden="true" aria-modal="true" aria-labelledby="drawer-title" role="dialog" inert>
+    <aside class="side-drawer" id="site-drawer" aria-hidden="true" aria-modal="true" aria-label="Navigation menu" role="dialog" inert>
       <div class="drawer-header">
-        <span class="drawer-label" id="drawer-title">menu</span>
         <button class="drawer-close" id="drawer-close" type="button" aria-label="Close navigation menu">
-          <svg viewBox="0 0 24 24" class="drawer-close-icon" aria-hidden="true">
-            <path d="M6 6l12 12M18 6 6 18" />
-          </svg>
+          <span class="drawer-close-text">close</span>
+          <span class="drawer-close-circle" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="drawer-close-icon">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </span>
         </button>
       </div>
 
@@ -187,4 +189,5 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(`${h
     </script>
   </body>
 </html>
+
 
