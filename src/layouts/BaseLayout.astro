@@ -160,11 +160,31 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(`${h
         });
 
         document.addEventListener("keydown", (event) => {
-          if (event.key === "Escape" && drawer.dataset.open === "true") {
+          if (drawer.dataset.open !== "true") return;
+
+          if (event.key === "Escape") {
             closeMenu();
+            return;
+          }
+
+          if (event.key !== "Tab") return;
+
+          const focusableElements = drawer.querySelectorAll("button, a[href]");
+          const firstElement = focusableElements[0];
+          const lastElement = focusableElements[focusableElements.length - 1];
+
+          if (!firstElement || !lastElement) return;
+
+          if (event.shiftKey && document.activeElement === firstElement) {
+            event.preventDefault();
+            lastElement.focus();
+          } else if (!event.shiftKey && document.activeElement === lastElement) {
+            event.preventDefault();
+            firstElement.focus();
           }
         });
       })();
     </script>
   </body>
 </html>
+
